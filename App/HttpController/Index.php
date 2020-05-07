@@ -11,11 +11,13 @@ class Index extends Controller
 
     public function index()
     {
-        $file = EASYSWOOLE_ROOT.'/vendor/easyswoole/easyswoole/src/Resource/Http/welcome.html';
-        if(!is_file($file)){
-            $file = EASYSWOOLE_ROOT.'/src/Resource/Http/welcome.html';
-        }
+        $file = EASYSWOOLE_ROOT.'/App/Common/View/index.html';
         $this->response()->write(file_get_contents($file));
+    }
+
+    public function hello()
+    {
+        $this->response()->write(123);
     }
 
     protected function actionNotFound(?string $action)

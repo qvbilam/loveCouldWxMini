@@ -1,0 +1,64 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<div>
+    <div>
+        <p>测试</p>
+        <ul  id="line">
+        </ul>
+    </div>
+    <div>
+        <select id="action">
+            <option value="who">获取fd</option>
+            <option value="hello">获取发送内容</option>
+        </select>
+        <input type="text" id="says">
+        <button onclick="say()">发送</button>
+    </div>
+</div>
+</body>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    var wsServer = 'ws://127.0.0.1:9601';
+    //var wsServer = 'ws://39.97.177.28:9601';
+    var websocket = new WebSocket(wsServer);
+    window.onload = function () {
+        websocket.onopen = function (evt) {
+            addLine("Connected to WebSocket server.");
+        };
+        websocket.onclose = function (evt) {
+            addLine("Disconnected");
+        };
+        websocket.onmessage = function (evt) {
+            addLine('Retrieved data from server: ' + evt.data);
+        };
+        websocket.onerror = function (evt, e) {
+            addLine('Error occured: ' + evt.data);
+        };
+    };
+    function addLine(data) {
+        $("#line").append("<li>"+data+"</li>");
+    }
+    function say() {
+        var content = $("#says").val(); // 调用方法
+        var action = $("#action").val(); // 发送内容
+        var send_id = 1; // 发送用户id
+        var send_fd = 1; // 发送用户连接id  每次执行都需要判断.刷新页面等操作会变的
+        var receiver_id = 2; //接受用户id,0或空 为所有用户,
+        var type = 'txt'; // 类型:txt.文本 ...
+        $("#says").val('');
+        // todo 用户是否被禁言
+        // todo 验证登录
+        websocket.send(JSON.stringify({
+            action:action,
+            content:content, //
+            sender_id: send_id,
+            sender_fd: send_fd,
+            receiver_id: receiver_id,
+            type: type
+        }));
+    }
+</script>
+</html>

@@ -6,6 +6,9 @@ use EasySwoole\EasySwoole\Swoole\EventRegister;
 use EasySwoole\EasySwoole\AbstractInterface\Event;
 use EasySwoole\Http\Request;
 use EasySwoole\Http\Response;
+use EasySwoole\Socket\Dispatcher;
+use App\WebSocket\WebSocketParser;
+
 
 class EasySwooleEvent implements Event
 {
@@ -19,6 +22,28 @@ class EasySwooleEvent implements Event
     public static function mainServerCreate(EventRegister $register)
     {
         // TODO: Implement mainServerCreate() method.
+        /*
+         * 热加载
+         * */
+        $hotReloadOptions = new \EasySwoole\HotReload\HotReloadOptions;
+        $hotReload = new \EasySwoole\HotReload\HotReload($hotReloadOptions);
+        $hotReloadOptions->setMonitorFolder([EASYSWOOLE_ROOT . '/App']);
+        $server = ServerManager::getInstance()->getSwooleServer();
+        $hotReload->attachToServer($server);
+        /*
+         * websocket
+         * */
+        $conf = new \EasySwoole\Socket\Config();
+        // 设置 Dispatcher 为 WebSocket 模式
+        $conf->setType(\EasySwoole\Socket\Config::WEB_SOCKET);
+        // 设置解析器对象
+        $conf->setParser(new WebSocketParser());
+        // 创建 Dispatcher 对象 并注入 config 对象
+        $dispatch = new Dispatcher($conf);
+        // 给server 注册相关事件 在 WebSocket 模式下  on message 事件必须注册 并且交给 Dispatcher 对象处理
+        $register->set(EventRegister::onMessage, function (\swoole_websocket_server $server, \swoole_websocket_frame $frame) use ($dispatch) {
+            $dispatch->dispatch($server, $frame->data, $frame);
+        });
     }
 
     public static function onRequest(Request $request, Response $response): bool

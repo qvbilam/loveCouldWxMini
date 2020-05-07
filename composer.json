@@ -5,7 +5,8 @@
         "thingengineer/mysqli-database-class": "dev-master",
         "easyswoole/socket": "^1.1",
         "easyswoole/redis": "^1.1",
-        "easyswoole/wechat": "^1.0"
+        "easyswoole/wechat": "^1.0",
+        "easyswoole/task": "^1.1"
     },
     "autoload": {
         "psr-4": {
