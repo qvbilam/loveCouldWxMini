@@ -6,7 +6,11 @@
         "easyswoole/socket": "^1.1",
         "easyswoole/redis": "^1.1",
         "easyswoole/wechat": "^1.0",
-        "easyswoole/task": "^1.1"
+        "easyswoole/task": "^1.1",
+        "ixudra/curl": "^6.19",
+        "easyswoole/jwt": "^1.1",
+        "php-ffmpeg/php-ffmpeg": "^0.16.0",
+	"ext-json": "*",
     },
     "autoload": {
         "psr-4": {

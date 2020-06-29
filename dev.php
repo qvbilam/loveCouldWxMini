@@ -10,14 +10,36 @@ return [
         'SETTING' => [
             'worker_num' => 8,
             'reload_async' => true,
-            'max_wait_time'=>3
+            'max_wait_time' => 3
         ],
-        'TASK'=>[
-            'workerNum'=>4,
-            'maxRunningNum'=>128,
-            'timeout'=>15
+        'TASK' => [
+            'workerNum' => 4,
+            'maxRunningNum' => 128,
+            'timeout' => 15
         ]
     ],
     'TEMP_DIR' => null,
-    'LOG_DIR' => null
+    'LOG_DIR' => null,
+    /*################ MYSQL CONFIG ##################*/
+    'MYSQL' => [
+        'host' => '127.0.0.1',
+        'port' => '3306',
+        'timeout' => '5',
+        'charset' => 'utf8mb4',
+        'POOL_MAX_NUM' => '20',
+        'POOL_TIME_OUT' => '0.1',
+        'username' => 'root',
+        'password' => 'root',
+        'db' => 'live_cloud',
+        'prefix' => 'lc_',
+    ],
+    /*################ REDIS CONFIG ##################*/
+    'REDIS' => [
+        'host' => '127.0.0.1',
+        'port' => '6379',
+        'auth' => '',
+        'POOL_MAX_NUM' => '20',
+        'POOL_MIN_NUM' => '5',
+        'POOL_TIME_OUT' => '0.1',
+    ],
 ];

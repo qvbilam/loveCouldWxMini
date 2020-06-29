@@ -4,3 +4,4 @@ Temp/*
 vendor/*
 .DS_Store
 App/.DS_Store
+.idea/

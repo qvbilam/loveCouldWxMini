@@ -1,4 +1,5 @@
 <?php
+
 namespace EasySwoole\EasySwoole;
 
 
@@ -8,6 +9,7 @@ use EasySwoole\Http\Request;
 use EasySwoole\Http\Response;
 use EasySwoole\Socket\Dispatcher;
 use App\WebSocket\WebSocketParser;
+use App\Common\Lib\FdManager;
 
 
 class EasySwooleEvent implements Event
@@ -44,11 +46,21 @@ class EasySwooleEvent implements Event
         $register->set(EventRegister::onMessage, function (\swoole_websocket_server $server, \swoole_websocket_frame $frame) use ($dispatch) {
             $dispatch->dispatch($server, $frame->data, $frame);
         });
+        // 创建共享内存
+        FdManager::getInstance();
     }
 
     public static function onRequest(Request $request, Response $response): bool
     {
-        // TODO: Implement onRequest() method.
+        // 跨域
+        $response->withHeader('Access-Control-Allow-Origin', '*');
+        $response->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        $response->withHeader('Access-Control-Allow-Credentials', 'true');
+        $response->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+        if ($request->getMethod() === 'OPTIONS') {
+            $response->withStatus(Status::CODE_OK);
+            return false;
+        }
         return true;
     }
 
