@@ -8,8 +8,9 @@ use App\Common\Model\Mysql\VideoPlate as VideoPlateModel;
 use App\Common\Model\Mysql\VideoStyle as VideoStyleModel;
 use App\Common\Model\Mysql\VideoDetail as VideoDetailModel;
 use App\Common\Model\Mysql\VideoPlace as VideoPlaceModel;
+use App\HttpController\Api\AuthBase;
 
-class Video extends ApiBase
+class Video extends AuthBase
 {
     // 获取视频
     public function getNormalVideo()

@@ -5,8 +5,9 @@ namespace App\HttpController\Api\Video;
 use App\HttpController\Api\ApiBase;
 
 use App\Common\Model\Mysql\VideoDanmu as VideoDanmuModel;
+use App\HttpController\Api\AuthBase;
 
-class VideoDanmu extends ApiBase
+class VideoDanmu extends AuthBase
 {
     // 通过视频id获取弹幕
     public function getNormalDanmuByVideoId()

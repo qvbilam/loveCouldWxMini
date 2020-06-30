@@ -4,9 +4,10 @@ namespace App\HttpController\Api\Video;
 
 use App\HttpController\Api\ApiBase;
 use App\Common\Model\Mysql\VideoPlate as VideoPlateModel;
+use App\HttpController\Api\AuthBase;
 
 
-class Plate extends ApiBase
+class Plate extends AuthBase
 {
     // 获取板块
     public function getNormalPlate()

@@ -4,9 +4,10 @@ namespace App\HttpController\Api\Video;
 
 use App\HttpController\Api\ApiBase;
 use App\Common\Model\Mysql\VideoDetail as VideoDetailModel;
+use App\HttpController\Api\AuthBase;
 
 
-class VideoDetail extends ApiBase
+class VideoDetail extends AuthBase
 {
     public function getNormalVideo()
     {
