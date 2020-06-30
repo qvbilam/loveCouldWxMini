@@ -3,7 +3,7 @@
 namespace App\Common\Lib;
 
 
-class phoneSms
+class PhoneSms
 {
     //API请求地址
     const BaseUrl = "https://open.ucpaas.com/ol/sms/";

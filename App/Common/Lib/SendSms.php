@@ -2,7 +2,7 @@
 
 namespace App\Common\Lib;
 
-use App\Common\Lib\phoneSms;
+use App\Common\Lib\PhoneSms;
 
 class SendSms
 {
@@ -10,7 +10,7 @@ class SendSms
     {
         $options['accountsid'] = 'fdd76caa9175ab6d30da2e281e1372ee';
         $options['token'] = '61995aa241a28e7efed581f92809b9eb';
-        $ucpass = new phoneSms($options);
+        $ucpass = new PhoneSms($options);
         $appid = "4bebc7fea3084c4cb2fe8be1c262d8dd";    //应用的ID，可在开发者控制台内的短信产品下查看
         $templateid = "272080";    //可在后台短信产品→选择接入的应用→短信模板-模板ID，查看该模板ID
         $param = $code; //多个参数使用英文逗号隔开（如：param=“a,b,c”），如为参数则留空
