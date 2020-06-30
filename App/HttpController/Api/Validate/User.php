@@ -28,13 +28,13 @@ class User
         }
         $userInfo = UserModel::getInstance()->getByConditon(['user_name' => $data['user_name']], 'id,vip,state,nick_name,salt,password', 1);
         if (!$userInfo) {
-            throw new  \Exception('账号不存在');
+            throw new  \Exception('账号不存在',-1);
         }
         if ($userInfo['state'] < 0) {
-            throw new  \Exception('账号禁止登录');
+            throw new  \Exception('账号禁止登录',-1);
         }
         if ($userInfo['password'] != Sign::pwdSign($data['password'], $userInfo['salt'])) {
-            throw new  \Exception('密码错误');
+            throw new  \Exception('密码错误',-1);
         }
         return json_encode([
             'id' => $userInfo['id'],
@@ -59,17 +59,17 @@ class User
         $redis = RedisBase::getInstance()->redis;
         $code = $redis->get(RedisKey::smsKey($data['phone']));
         if ($code != $data['code']) {
-            throw new  \Exception('验证码错误');
+            throw new  \Exception('验证码错误',-1);
         }
         // 验证手机号是否正确
         $checkPhone = UserModel::getInstance()->getByConditon(['phone' => $data['phone']], 'id', 1);
         if ($checkPhone) {
-            throw new  \Exception('手机号已存在');
+            throw new  \Exception('手机号已存在',-1);
         }
         // 验证用户名是否存在
         $chekUsername = UserModel::getInstance()->getByConditon(['user_name' => $data['user_name']], 'id', 1);
         if ($chekUsername) {
-            throw new \Exception('用户名存在');
+            throw new \Exception('用户名存在',-1);
         }
         return true;
     }

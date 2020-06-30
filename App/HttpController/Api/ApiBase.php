@@ -73,7 +73,8 @@ class ApiBase extends Controller
 
         $this->response()->withStatus(Status::CODE_OK);
         $this->response()->write(json_encode([
-            'code' => $throwable->getCode(),
+//            'code' => $throwable->getCode(),
+            'code' => -1,
             'msg' => $throwable->getMessage(),
         ]));
         $this->response()->end();
