@@ -49,8 +49,8 @@ class ApiBase extends Controller
     public function getParmas()
     {
         $params = $this->request()->getRequestParam();
-        $params['page'] = !empty($params['page']) ? intval($params['page']) : intval(\Yaconf::get('qvbilam_shop_es.default_page'));
-        $params['size'] = !empty($params['size']) ? intval($params['size']) : intval(\Yaconf::get('qvbilam_shop_es.default_size'));
+        $params['page'] = !empty($params['page']) ? intval($params['page']) : 1;
+        $params['size'] = !empty($params['size']) ? intval($params['size']) : 20;
         // $params['from'] = ($params['page'] - 1) * $params['size']; limit用.mysqlidb包用不到.
         $this->params = $params;
     }

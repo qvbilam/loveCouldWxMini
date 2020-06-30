@@ -10,7 +10,7 @@
         "ixudra/curl": "^6.19",
         "easyswoole/jwt": "^1.1",
         "php-ffmpeg/php-ffmpeg": "^0.16.0",
-	"ext-json": "*",
+	"ext-json": "*"
     },
     "autoload": {
         "psr-4": {

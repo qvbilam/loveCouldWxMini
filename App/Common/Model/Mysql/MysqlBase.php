@@ -81,6 +81,7 @@ class MysqlBase
                 $res = $obj->getValue($this->table, $field, $limit);
             }
         } catch (\Exception $e) {
+            echo $e->getMessage() . PHP_EOL;
             return false;
         }
         return $res;
@@ -102,7 +103,6 @@ class MysqlBase
             $obj->pageLimit = $pageLimit;
             $data = $obj->arrayBuilder()->paginate($this->table, $page, $field);
         } catch (\Exception $e) {
-            echo $obj->getLastQuery() . PHP_EOL;
             echo $e->getMessage() . PHP_EOL;
             throw new \Exception('获取数据失败');
         }
