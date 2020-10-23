@@ -11,7 +11,6 @@ class FdManager
 
     public $fdUserId;   // 连接id 关联用户id
     public $userIdFd;   // 用户id关联连接id, 可直接遍历获取连接用户
-    public $roomIdFd;   // 直播间id关联连接id, 直播间群聊消息
 
     public function __construct($size = 1024 * 256)
     {
@@ -20,23 +19,15 @@ class FdManager
         $this->fdUserId->create();
         $this->userIdFd = new Table($size);
         $this->userIdFd->column('fd', Table::TYPE_INT, 10);
+        $this->userIdFd->column('roomId', Table::TYPE_INT, 10);
         $this->userIdFd->create();
-        $this->roomIdFd = new Table($size);
-        $this->roomIdFd->column('roomId', Table::TYPE_INT, 10);
-        $this->roomIdFd->create();
-    }
-
-    // 绑定房间用户
-    public function bindRoom(int $roomId, int $fd)
-    {
-        $this->roomIdFd->set($roomId, ['fd' => $fd]);
     }
 
     // 绑定连接用户
-    public function bindUser(int $fd, int $userId)
+    public function bindUser(int $fd, int $userId, int $roomId)
     {
         $this->fdUserId->set($fd, ['userId' => $userId]);
-        $this->userIdFd->set($userId, ['fd' => $fd]);
+        $this->userIdFd->set($userId, ['fd' => $fd, 'roomId' => $roomId]);
     }
 
     // 清除内存
@@ -47,7 +38,6 @@ class FdManager
             $this->userIdFd->del($userId);
         }
         $this->fdUserId->del($fd);
-        $this->roomIdFd->del($fd);
     }
 
     // 通过连接id获取用户id
